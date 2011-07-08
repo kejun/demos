@@ -73,7 +73,11 @@ prev: function(speed){
 },
 
 top: function(){
-  $win.scrollTop(0);
+  $('html,body').stop().animate({
+      scrollTop: 0
+  },
+  100,
+  TRANS_FUNC);
 },
 
 next: function(speed){
