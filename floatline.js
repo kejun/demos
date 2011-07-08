@@ -14,6 +14,7 @@ var $win = $(win),
     TRANS_TIME = 1000,
     TRANS_FUNC = 'easeOutExpo',
     timeout,
+    hideLineTimer,
 
 floatLine = {
 
@@ -29,7 +30,7 @@ getLine: function(){
 
 moveTo: function(targetNode, interval) {
   var targetPos = targetNode.offset(),
-  line = floatLine.getLine().show();
+  line = floatLine.getLine().css('opacity', 1).show();
 
   floatLine.currentItem = targetNode;
   $('html,body').stop().animate({
@@ -43,8 +44,12 @@ moveTo: function(targetNode, interval) {
     height: targetNode.height() 
    },
    interval,
-   TRANS_FUNC
-   );
+   TRANS_FUNC,
+   function() {
+     hideLineTimer = win.setTimeout(function(){
+       line.fadeOut();
+     }, 3000);
+   });
 },
 
 getCurrentItem: function(){
@@ -67,6 +72,10 @@ prev: function(speed){
   }, 0);
 },
 
+top: function(){
+  $win.scrollTop(0);
+},
+
 next: function(speed){
   var targetNode = floatLine.currentItem.next();
   if (targetNode.length === 0) {
@@ -80,6 +89,7 @@ next: function(speed){
 init: function(){
     floatLine.currentItem = floatLine.getCurrentItem();
     $win.bind('scroll', function(){
+        hideLineTimer && win.clearTimeout(hideLineTimer);
         timeout && win.clearTimeout(timeout);
         timeout = win.setTimeout(function(){
            floatLine.currentItem = floatLine.getCurrentItem();
@@ -91,30 +101,66 @@ init: function(){
 win.floatLine = floatLine;
 
 
-var keyTimer,
+var keys = [],
+    keyTimer,
     keyMap = {
       74: 'j',
       75: 'k',
       71: 'g',
+      72: 'h',
+      80: 'p',
+      83: 's',
       13: 'return'
     },
     keyHandler = {
       'j': function() {
         floatLine.next();
+        $doc.trigger('shortcuts:j');
       },
       'k': function() {
         floatLine.prev();
+        $doc.trigger('shortcuts:k');
       },
       'return': function() {
         floatLine.currentItem.trigger('click');
+        $doc.trigger('shortcuts:return');
+      },
+      'gh': function() {
+        floatLine.top();
+        $doc.trigger('shortcuts:gh');
+      },
+      'gp': function() {
+        $doc.trigger('shortcuts:gp');
+      },
+      'gs': function() {
+        $doc.trigger('shortcuts:gs');
       }
     };
 
 $doc.bind('keydown', function(e){
     if (e.target.tagName.search(/input|textarea/i) + 1) {
+       if (e.keyCode === 27) {
+         e.target.blur();
+       }
       return;
     }
+
     var keyName = keyMap[e.keyCode]; 
+
+    if (keyName === 'g') {
+       keys = ['g'];
+       return;
+    }
+
+    if (keys.length) {
+       keys.push(keyName);
+       if (typeof keyHandler[keys.join('')] === 'function') {
+          keyHandler[keys.join('')]();
+       }
+       keys = [];
+       return;
+    }
+
     win.clearTimeout(keyTimer);
     if (typeof keyHandler[keyName] === 'function') {
       keyTimer = win.setTimeout(keyHandler[keyName], 20);
