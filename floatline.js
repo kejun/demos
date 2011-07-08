@@ -102,19 +102,26 @@ init: function(){
 }
 };
 
-win.floatLine = floatLine;
-
-
 var keys = [],
     keyTimer,
-    keyMap = {
-      74: 'j',
-      75: 'k',
-      71: 'g',
-      72: 'h',
-      80: 'p',
-      83: 's',
+    specialKeys = {
       13: 'return'
+    },
+    abc = [
+      'a','b','c','d','e','f','g',
+      'h','i','j','k','l','m','n',
+      'o','p','q','r','s','t','u',
+      'v','w','x','y','z'
+    ],
+    num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    getKeyName = function(code) {
+      if (code > 64 && code < 91) {
+        return abc[code - 65];
+      }
+      if (code > 47 && code < 58) {
+        return num[code - 48];
+      }
+      return specialKeys[code];
     },
     keyHandler = {
       'j': function() {
@@ -149,7 +156,7 @@ $doc.bind('keydown', function(e){
       return;
     }
 
-    var keyName = keyMap[e.keyCode]; 
+    var keyName = getKeyName(e.keyCode); 
 
     if (keyName === 'g') {
        keys = ['g'];
@@ -175,5 +182,13 @@ bind('keyup', function(){
 });
 
 floatLine.init();
+
+floatLine.shortcuts = {
+  setHandler:  function(keys, func) {
+    keyHandler[keys] = func;
+  }
+};
+
+win.floatLine = floatLine;
 
 }(window, document);
