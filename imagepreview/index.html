@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="preview_image.css" />
+  <style type="text/css">
+    body, ul {
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    .pic-list {
+      display: inline-block;
+    }
+
+    li {
+      margin: 10px;
+      list-style: none;
+    }
+  </style>
+</head>
+<body>
+  <div style="padding-top:40%;margin-bottom:40px;background:#0ff;"></div>
+
+  <div class="pic-list">
+    <ul>
+      <li><a href="http://1.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://2.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://3.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://4.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://5.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://6.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://6.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://6.com"><img src="http://dummyimage.com/100" alt="" /></a>
+      <li><a href="http://6.com"><img src="http://dummyimage.com/100" alt="" /></a>
+    </ul>
+  </div>
+  
+
+<script src="http://img3.douban.com/js/packed_jquery.min6301986802.js"></script>
+<script src="preview_image.js"></script>
+<script>
+  $(document).delegate('.pic-list a', 'click', function(e) {
+    e.preventDefault();
+    $.previewImage.open($(this).data());
+  });
+</script>
+
+</body>
+</html>
