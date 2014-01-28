@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+   <link href="http://img3.douban.com/f/shire/c7fb71fdb76b0ab13b2d06e7316840343f9be58c/css/douban.css" rel="stylesheet" type="text/css">
+   <style type="text/css">
+     html {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100%;
+     }
+     .slide {
+       position: relative;
+       width: 50%;
+       overflow: hidden;
+       white-space: nowrap;
+     }
+     .slide ul {
+       font-size: 0;
+       letter-spacing: -.31em;
+       *letter-spacing: normal;
+       *word-spacing: -.43em;
+     }
+     .slide li {
+       display: inline-block;
+       *display: inline;
+       zoom: 1;
+       vertical-align: middle;
+       margin-right: 4px;
+       font-size: 12px;
+       letter-spacing: normal;
+       word-spacing: normal;
+     }
+
+     .bn-scroller-next {
+       position: absolute;
+       top: 50%;
+       right: 0;
+       padding: .5em 1em;
+       margin-top: -1.5em;
+     }
+
+     .bn-scroller-prev {
+       position: absolute;
+       top: 50%;
+       left: 0;
+       padding: .5em 1em;
+       margin-top: -1.5em;
+     }
+   </style>
+</head>
+<body>
+
+  <div class="slide">
+    <div class="bd">
+    <ul>
+      <li><a href="#" class="lnk-preview" data-preview-img="http://placeimg.com/500/500/1"><img src="http://placeimg.com/150/100/1" width="150" alt="" /></a>
+      <li><img src="http://placeimg.com/120/100/2" width="120" alt="" />
+      <li><img src="http://placeimg.com/100/100/3" width="100" alt="" />
+      <li><img src="http://placeimg.com/100/100/4" width="100" alt="" />
+      <li><img src="http://placeimg.com/500/100/2" width="500" alt="" />
+      <li><img src="http://placeimg.com/150/100/3" width="150" alt="" />
+      <li><img src="http://placeimg.com/120/100/4" width="120" alt="" />
+      <li><img src="http://placeimg.com/120/100/5" width="120" alt="" />
+      <li><img src="http://placeimg.com/100/100/6" width="100" alt="" />
+      <li><img src="http://placeimg.com/140/100/7" width="140" alt="" />
+      <li style="width:100px;text-align:center;line-height:100px;"><a href="">更多...</a>
+    </ul>
+    </div>
+  </div>
+
+
+  <button onclick="change()">change</button>  
+
+<script src="http://img3.douban.com/f/shire/8033e1c2528bb6402c478e00176afb3562abbc21/js/jquery.min.js"></script>
+<script src="scroller.js"></script>
+<script>
+
+$('.slide').scroller();
+
+
+</script>
+</body>
+</html>
